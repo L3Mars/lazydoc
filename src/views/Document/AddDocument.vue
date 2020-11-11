@@ -43,7 +43,15 @@
       </v-row>
       <v-row class="flex-grow-0">
         <v-col cols="12">
-          <AutoCompleteTags :selectedTags.sync="selectedTags" outlined solo flat> </AutoCompleteTags>
+          <AutoCompleteTags
+            :selectedTags.sync="selectedTags"
+            label="Tags"
+            appendInnerIcon="mdi-tag-multiple"
+            outlined
+            solo
+            flat
+          >
+          </AutoCompleteTags>
         </v-col>
       </v-row>
       <v-row class="flex-grow-0 pr-3 pl-3">

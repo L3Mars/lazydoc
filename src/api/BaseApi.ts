@@ -1,20 +1,31 @@
-import axios, { AxiosInstance } from "axios";
+import axios from 'axios';
+import { userModule } from '@/store/UserModule';
 
 export default class BaseApi {
   static get axiosBase() {
-    return axios.create({
-      //   headers: { Authorization: `Bearer ${UserModule.token}` },
-    });
+    if (userModule.isAuthenticate) {
+      return axios.create({
+        headers: { Authorization: `Bearer ${userModule.token}` }
+      });
+    } else {
+      return axios.create();
+    }
   }
 
-  private static _lazyDocApi: AxiosInstance | null;
+  //private static _lazyDocApi: AxiosInstance | null;
   static get LazyDocApi() {
-    if (!this._lazyDocApi) {
-      this._lazyDocApi = axios.create({
+    //if (!this._lazyDocApi) {
+    if (userModule.isAuthenticate) {
+      return axios.create({
+        baseURL: process.env.VUE_APP_API_URL,
+        headers: { Authorization: `Bearer ${userModule.token}` }
+      });
+    } else {
+      return axios.create({
         baseURL: process.env.VUE_APP_API_URL
-        // headers: { Authorization: `Bearer ${UserModule.token}` },
       });
     }
-    return this._lazyDocApi;
+    //}
+    //return this._lazyDocApi;
   }
 }

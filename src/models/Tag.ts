@@ -1,7 +1,7 @@
 export interface Tag {
   id: number;
   userId: string;
-  documentId: number;
+  documentId: string;
   label: string;
   createDate: Date | string;
 }

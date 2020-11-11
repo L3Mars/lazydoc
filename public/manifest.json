@@ -1,0 +1,21 @@
+{
+  "name": "LazyDocs",
+  "short_name": "LazyDocs",
+  "icons": [
+    {
+      "src": "/img/icons/docu-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/img/icons/docu-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4DBA87",
+  "gcm_sender_id": "103953800507"
+}

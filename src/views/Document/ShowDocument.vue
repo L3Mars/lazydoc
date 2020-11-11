@@ -1,9 +1,9 @@
 <template>
   <div v-if="document">
-    <span v-for="(file, i) in document.files" :key="i">
-      <img v-if="file.type == '.jpg'" :src="getSrc(file.id)" width="800" contain />
+    <v-col cols="12" v-for="(file, i) in document.files" :key="i" class="d-flex child-flex">
+      <img v-if="file.type == '.jpg' || file.type == '.png'" :src="getSrc(file.id)" aspect-ratio="1" contain />
       <PDFViewer v-if="file.type == '.pdf'" :url="getSrc(file.id)"></PDFViewer>
-    </span>
+    </v-col>
   </div>
 </template>
 
@@ -13,6 +13,7 @@ import documentApi from '@/api/DocumentApi';
 import AutoCompleteTags from '@/components/AutoCompleteTags.vue';
 import { DocumentGet } from '@/models/Document';
 import PDFViewer from '@/components/PDFViewer.vue';
+import { userModule } from '@/store/UserModule';
 
 @Component({ components: { AutoCompleteTags, PDFViewer } })
 export default class ShowDocument extends Vue {
@@ -23,14 +24,14 @@ export default class ShowDocument extends Vue {
   private numPages = 0;
 
   mounted() {
-    this.openDocument(this.$route.params.id.toNumber());
+    this.openDocument(this.$route.params.id);
   }
 
   private getSrc(fileId: number) {
-    return `${process.env.VUE_APP_API_URL}fichier/${fileId}`;
+    return `${process.env.VUE_APP_API_URL}fichier/${fileId}/${userModule.token}`;
   }
 
-  public async openDocument(documentId: number) {
+  public async openDocument(documentId: string) {
     this.dialog = true;
     this.document = await documentApi.get(documentId);
   }
